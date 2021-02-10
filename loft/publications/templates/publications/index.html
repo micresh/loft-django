@@ -1,0 +1,26 @@
+{% if publication_list %}
+<ul>
+    {% for pub in publication_list%}
+    <li><h2><a href="/publications/{{pub.id}}">{{pub.title}} Комментариев: {{pub.number_of_comments}}</a></h2></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No publications available</p>
+{% endif %}
+<div class="pagination">
+    <span class="step-links">
+        {% if publication_list.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ publication_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ publication_list.number }} of {{ publication_list.paginator.num_pages }}.
+        </span>
+
+        {% if publication_list.has_next %}
+            <a href="?page={{ publication_list.next_page_number }}">next</a>
+            <a href="?page={{ publication_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>

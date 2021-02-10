@@ -1,0 +1,26 @@
+<h2>{{publication.title}}</h2>
+<br>
+{{ publication.text }}
+<br>
+{{ publication.pub_date }}
+<br>
+{% for tag in publication.tags.all %}
+<h3>{{ tag.text }}</h3>
+{% endfor %}
+<p>Comments</p>
+{% if comments %}
+    {% for comment in comments %}
+        <h3>{{comment.author}}</h3>
+        <h2>{{comment.text}}</h2>
+    {% endfor %}
+{% endif %}
+
+<form action="/publications/{{publication.id}}/comment/" method="post">
+    {% csrf_token %}
+    <label>Username</label>
+    <input type="text" name="author">
+    <br>
+    <label>Comment</label>
+    <input type="text" name="text"><br>
+    <input type="submit" value="comment">
+</form>

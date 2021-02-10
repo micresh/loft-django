@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  loft_service:
+    restart: always
+    image: loft_image
+    container_name: loft_backend_container
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    command: bash -c "python manage.py makemigrations; python manage.py migrate; python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
